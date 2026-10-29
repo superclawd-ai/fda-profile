@@ -6,8 +6,8 @@ it decides. Install one per FDA, fill in the client's details, point the FDA at 
 
 | Profile | For |
 |---|---|
-| [`software_engineer`](profiles/software_engineer) | Builds and fixes things: tickets, bugs, features, reviews, pull requests |
-| [`support_engineer`](profiles/support_engineer) | Answers and investigates support questions: triage, reproduce, explain, escalate |
+| [`software-engineer`](profiles/software-engineer) | Builds and fixes things: tickets, bugs, features, reviews, pull requests |
+| [`support-engineer`](profiles/support-engineer) | Answers and investigates support questions: triage, reproduce, explain, escalate |
 
 ## What's in a profile
 
@@ -18,7 +18,7 @@ profiles/<profile>/
 ├── REPOS.md           # the repositories the FDA works on: URL, default branch, setup, tests
 ├── DECISION.md        # decision log: what was decided, why, by whom (newest first)
 ├── playbooks/         # step-by-step procedures for recurring work
-├── kb/                # (support_engineer) known issues and answers
+├── kb/                # (support-engineer) known issues and answers
 ├── .mcp.json          # extra MCP servers for this FDA (empty by default)
 ├── .claude/
 │   └── settings.json  # Claude Code project settings (lets the servers in .mcp.json load)
@@ -36,7 +36,7 @@ On the FDA machine, as the FDA's user:
 
 ```bash
 git clone https://github.com/superclawd-ai/fda-profiles.git ~/fda-profiles   # or git pull
-~/fda-profiles/scripts/install.sh software_engineer ~/work/jim
+~/fda-profiles/scripts/install.sh software-engineer ~/work/jim
 ```
 
 Then:
@@ -104,7 +104,7 @@ Empty by default. Add servers the role needs, in Claude Code's format:
 
 ## Add a profile
 
-1. Copy the closest profile: `cp -R profiles/software_engineer profiles/<new_name>` (snake_case).
+1. Copy the closest profile: `cp -R profiles/software-engineer profiles/<new-name>` (kebab-case, like `software-engineer`).
 2. Rewrite `CLAUDE.md` for the role (keep the shared sections: folder layout, worktrees, decisions,
    scratch space, secrets), and adjust the playbooks.
 3. Run `scripts/validate.sh`.

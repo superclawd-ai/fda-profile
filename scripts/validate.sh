@@ -20,7 +20,7 @@ json_ok() {
 
 for dir in "$here"/profiles/*/; do
   name="$(basename "$dir")"
-  [[ "$name" =~ ^[a-z][a-z0-9_]*$ ]] || { echo "$name: name must be snake_case"; fail=1; }
+  [[ "$name" =~ ^[a-z][a-z0-9-]*$ ]] || { echo "$name: name must be kebab-case (lowercase, dashes)"; fail=1; }
   for f in "${required_files[@]}"; do
     [ -f "$dir$f" ] || { echo "$name: missing $f"; fail=1; }
   done

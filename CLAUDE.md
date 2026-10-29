@@ -6,7 +6,7 @@ will work inside an installed copy; this file is for whoever maintains the templ
 
 ## Layout
 
-- `profiles/<name>/`: one profile per role, snake_case. Required in every profile: `CLAUDE.md`,
+- `profiles/<name>/`: one profile per role, kebab-case (`software-engineer`). Required in every profile: `CLAUDE.md`,
   `CONTEXT.md`, `REPOS.md`, `DECISION.md`, `.mcp.json`, `.claude/settings.json`, `playbooks/`,
   `.files/`, `repos/`, `worktrees/` (the last three ship empty with a `.gitkeep`).
 - `scripts/install.sh`: copies a profile to an FDA's work directory. `scripts/validate.sh`: checks
@@ -36,4 +36,4 @@ will work inside an installed copy; this file is for whoever maintains the templ
 ## Git
 
 Commit and push to `main` directly is fine for template changes; keep commits focused, one change per
-commit, message in the imperative ("Add data_analyst profile").
+commit, message in the imperative ("Add data-analyst profile").

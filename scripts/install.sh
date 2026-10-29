@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Install an FDA profile into a work directory.
 #   scripts/install.sh <profile> <destination>
-#   e.g. scripts/install.sh software_engineer ~/work/jim
+#   e.g. scripts/install.sh software-engineer ~/work/jim
 # Copies the profile (empty repos/, worktrees/, .files/), never overwrites an existing folder.
 set -euo pipefail
 
@@ -17,7 +17,7 @@ usage() {
 profile="$1"
 dest="${2/#\~/$HOME}"
 
-[[ "$profile" =~ ^[a-z][a-z0-9_]*$ ]] || { echo "invalid profile name: $profile" >&2; usage; }
+[[ "$profile" =~ ^[a-z][a-z0-9-]*$ ]] || { echo "invalid profile name: $profile" >&2; usage; }
 src="$here/profiles/$profile"
 [ -d "$src" ] || { echo "no such profile: $profile" >&2; usage; }
 if [ -e "$dest" ]; then
