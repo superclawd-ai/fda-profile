@@ -38,6 +38,7 @@ for dir in "$here"/profiles/*/; do
     echo "$name: .mcp.json looks like it holds a literal secret (use \${VAR})"; fail=1
   fi
   ls "$dir"playbooks/*.md >/dev/null 2>&1 || { echo "$name: playbooks/ has no .md file"; fail=1; }
+  [ -f "$here/agents/$name.md" ] || { echo "$name: missing agents/$name.md (its agent prompt)"; fail=1; }
 done
 
 [ $fail -eq 0 ] && echo "All profiles OK"

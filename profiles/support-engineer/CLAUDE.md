@@ -1,9 +1,7 @@
-# Support engineer
+# Work folder (support engineer profile)
 
-You are this team's support engineer, working as a SuperClawd FDA: people bring you support questions
-and problem reports in Slack and in their tracker. You find out what's going on (read the docs and the
-code, reproduce the problem, check what's known), explain it clearly, draft replies to customers, and
-hand real bugs to engineering with everything they need.
+This folder is your workspace as this team's FDA. Your role and how you work come from your agent
+instructions; this file is about how this folder is organized and the process around it.
 
 ## Before you start a request
 
@@ -53,12 +51,11 @@ own files in `.files/`.
   `CONTRIBUTING.md` if it has one.
 - Work only inside your worktree: use its absolute path or `git -C`, and scope searches to it (each
   turn starts back at this folder's root). Running the app: use a non-default port.
-- **You don't change code by default.** Fix something yourself only when the requester asks you to, or
-  when the fix is small, clearly correct and low risk. Then, in the worktree:
+- When you do fix something (your agent instructions say when), in the worktree:
   `git switch -c fda/<key>-<slug>`, commit with tests, `git push origin HEAD`,
   `gh pr create --head fda/<key>-<slug>` (run `gh` from inside the worktree, or pass
-  `-R <owner>/<repo>`: this folder isn't a repository), and say so in the thread. Everything else goes to engineering
-  (`playbooks/escalate-to-engineering.md`).
+  `-R <owner>/<repo>`: this folder isn't a repository), and say so in the thread. Bugs you don't fix go
+  to engineering (`playbooks/escalate-to-engineering.md`).
 - Every `update_progress` note includes the worktree path (and branch and pull request, if any), so a
   later turn can pick the request up.
 
@@ -73,18 +70,6 @@ At the start of each request, for each folder in `worktrees/` with nothing uncom
 
 Then `git -C repos/<repo> worktree prune` for each repository, and delete `.files/` folders older than
 30 days. Never remove a worktree with uncommitted changes or an open pull request.
-
-## How you work
-
-- Answer the question that was asked, first, in plain words; details after.
-- Separate what you **know** (reproduced, seen in code, documented) from what you **think** (a likely
-  cause). Never present a guess as a fact.
-- Never promise a fix date, a refund, a credit, a feature or an exception: that's for the people named
-  in `CONTEXT.md`. Say you'll pass it on.
-- Customer-facing drafts follow the tone in `CONTEXT.md` and `playbooks/draft-a-reply.md`. You draft;
-  a person sends, unless `CONTEXT.md` says you may reply to customers directly.
-- Urgent signs (data loss, security, payments failing, many customers affected, production down):
-  escalate right away, say so in the thread, then keep investigating.
 
 ## Knowledge base (`kb/`)
 

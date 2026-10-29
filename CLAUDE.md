@@ -6,9 +6,12 @@ will work inside an installed copy; this file is for whoever maintains the templ
 
 ## Layout
 
-- `profiles/<name>/`: one profile per role, kebab-case (`software-engineer`). Required in every profile: `CLAUDE.md`,
+- `profiles/<name>/`: one profile per role, kebab-case (`software-engineer`). Required in every
+  profile: `CLAUDE.md`,
   `CONTEXT.md`, `REPOS.md`, `DECISION.md`, `.mcp.json`, `.claude/settings.json`, `playbooks/`,
   `.files/`, `repos/`, `worktrees/` (the last three ship empty with a `.gitkeep`).
+- `agents/<name>.md`: the agent prompt for each profile, pasted into the FDA's Primary agent in the
+  SuperClawd App. The role (who the FDA is, how it behaves) lives only here.
 - `scripts/install.sh`: copies a profile to an FDA's work directory. `scripts/validate.sh`: checks
   every profile has the required files and valid JSON.
 - `README.md`: what a profile is and how to install one. Keep its profile table current.
@@ -27,6 +30,9 @@ will work inside an installed copy; this file is for whoever maintains the templ
 - **Shared sections stay consistent across profiles**: folder layout, where things go, repos and
   worktrees, cleaning up, decisions, scratch space, secrets. When you change one, change it in every
   profile.
+- **Role in `agents/`, folder in `CLAUDE.md`.** A profile's `CLAUDE.md` describes the folder and the
+  process (layout, worktrees, cleanup, where things go); the agent prompt describes the role. Never put
+  the same rule in both.
 - **Keep `CLAUDE.md` short and concrete.** Procedures longer than a few lines go in `playbooks/`.
 - `.mcp.json` ships empty (`{"mcpServers": {}}`); never a literal secret (see README).
 - Profiles must work with the git protection the README's "Known gaps" describes: create branches with

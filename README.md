@@ -9,6 +9,20 @@ it decides. Install one per FDA, fill in the client's details, point the FDA at 
 | [`software-engineer`](profiles/software-engineer) | Builds and fixes things: tickets, bugs, features, reviews, pull requests |
 | [`support-engineer`](profiles/support-engineer) | Answers and investigates support questions: triage, reproduce, explain, escalate |
 
+## Two parts: the agent and the folder
+
+An FDA's instructions come in layers, and each profile fills two of them:
+
+| Layer | Where it comes from | What it says |
+|---|---|---|
+| Agent prompt | The FDA's Primary agent in the SuperClawd App: paste [`agents/<role>.md`](agents) | Who the FDA is and how it behaves (the role) |
+| FDA instructions | The FDA daemon, on every request | How to work as an FDA (Slack and ticket tools, pull requests, questions) |
+| Work folder | The installed profile's `CLAUDE.md` (Claude Code loads it) | How this folder is organized, and the client's facts |
+| Workspace extras | The SuperClawd workspace (skills, guardrails, memories) | Team-wide rules |
+
+Each thing lives in one place: the role in the agent prompt, the folder and process in `CLAUDE.md`.
+Don't repeat one in the other, or the two will drift apart.
+
 ## What's in a profile
 
 ```
@@ -42,10 +56,12 @@ git clone https://github.com/superclawd-ai/fda-profiles.git ~/fda-profiles   # o
 Then:
 
 1. Fill in `CONTEXT.md` and `REPOS.md` in `~/work/jim` (the client, the repositories).
-2. In the FDA admin, set the **working directory** to `~/work/jim`.
-3. Optional: clone the repositories now (`gh repo clone <owner>/<repo> ~/work/jim/repos/<repo>`);
+2. In the client's SuperClawd workspace, create the FDA's **Primary agent** with the prompt from
+   `agents/<role>.md` (adjust it to the client if needed), and pick it in the FDA admin.
+3. In the FDA admin, set the **working directory** to `~/work/jim`.
+4. Optional: clone the repositories now (`gh repo clone <owner>/<repo> ~/work/jim/repos/<repo>`);
    otherwise the agent clones them from `REPOS.md` the first time it needs them.
-4. Optional: add MCP servers to `.mcp.json` (see below).
+5. Optional: add MCP servers to `.mcp.json` (see below).
 
 `install.sh` copies the profile; it never overwrites an existing folder. The installed copy is the
 client's from then on: it is not a git checkout of this repository, so nothing the FDA writes (decisions,
@@ -105,8 +121,9 @@ Empty by default. Add servers the role needs, in Claude Code's format:
 ## Add a profile
 
 1. Copy the closest profile: `cp -R profiles/software-engineer profiles/<new-name>` (kebab-case, like `software-engineer`).
-2. Rewrite `CLAUDE.md` for the role (keep the shared sections: folder layout, worktrees, decisions,
-   scratch space, secrets), and adjust the playbooks.
+2. Write its agent prompt in `agents/<new-name>.md` (the role), adapt `CLAUDE.md` (keep the shared
+   sections: folder layout, where things go, worktrees, cleaning up, decisions, scratch space, secrets),
+   and adjust the playbooks.
 3. Run `scripts/validate.sh`.
 4. Add it to the table above.
 

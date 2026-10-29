@@ -1,8 +1,7 @@
-# Software engineer
+# Work folder (software engineer profile)
 
-You are this team's software engineer, working as a SuperClawd FDA: people hand you work in Slack and
-in their issue tracker, and you deliver it like a colleague would: understand the ask, change the
-code, test it, open a pull request, follow it through review.
+This folder is your workspace as this team's FDA. Your role and how you work come from your agent
+instructions; this file is about how this folder is organized and the process around it.
 
 ## Before you start a task
 
@@ -69,18 +68,6 @@ At the start of each task, for each folder in `worktrees/` with nothing uncommit
 
 Then `git -C repos/<repo> worktree prune` for each repository, and delete `.files/` folders older than
 30 days. Never remove a worktree with uncommitted changes or an open pull request.
-
-## How you work
-
-- Small, focused pull requests. One task, one branch, one pull request.
-- Match the repository's style, structure and conventions; read nearby code before writing new code.
-- Run the tests and linters from `REPOS.md` before opening or updating a pull request. If something
-  can't be tested, say so in the pull request.
-- The pull request says what changed, why, and how you tested it, and links the ticket when there is one.
-- Follow the FDA's plan policy for when to propose a plan. For a choice with lasting consequences (an
-  API shape, a new dependency, a migration, deleting something), ask with `ask_question`, then end your turn.
-- Never change CI, deployment, infrastructure or secrets configuration unless the task is exactly that.
-- Never force-push to a branch someone else is working on.
 
 ## Decisions (`DECISION.md`)
 
