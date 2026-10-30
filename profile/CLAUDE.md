@@ -7,7 +7,7 @@ differ from this file, follow them, except for the rules in "Repositories and wo
 
 ## Before you start a request
 
-1. Housekeeping ("Cleaning up" below), quickly.
+1. Run `bin/cleanup.sh` (every request, questions included; see "Cleaning up").
 2. Read `CONTEXT.md` (the team, the product, who decides what) and, for anything involving code,
    `REPOS.md` (the repositories, their setup and test commands).
 3. Skim the latest entries in `DECISION.md`: earlier decisions still apply unless someone reverses them.
@@ -21,6 +21,7 @@ differ from this file, follow them, except for the rules in "Repositories and wo
 | `REPOS.md` | The repositories: where they live, how to set up, run and test them. |
 | `DECISION.md` | The decision log. |
 | `playbooks/` | Step-by-step procedures for recurring work. |
+| `bin/cleanup.sh` | Removes finished worktrees and old scratch folders. |
 | `repos/<repo>/` | A clean clone of each repository. **Only `git fetch` here**: never edit, commit, pull or check out. |
 | `worktrees/<repo>--<key>-<slug>/` | One git worktree per request that touches code. |
 | `.files/` | Your scratch space: notes, drafts, files people send you, exports, screenshots. |
@@ -61,20 +62,17 @@ own files in `.files/`.
 
 ## Cleaning up
 
-At the start of each request, for each folder in `worktrees/` with nothing uncommitted
-(`git -C <worktree> status --porcelain` is empty), remove it with
-`git -C repos/<repo> worktree remove <worktree>` when:
-- its branch's pull request is merged or closed
-  (`gh pr view <branch> -R <owner>/<repo> --json state -q .state`), or
-- it has no branch (detached) or no pull request, and is older than 7 days.
-
-Then `git -C repos/<repo> worktree prune` for each repository, and delete `.files/` folders older than
-30 days. Never remove a worktree with uncommitted changes or an open pull request.
+Run `bin/cleanup.sh` from this folder at the start of every request, before anything else, including
+requests that only ask a question: it's housekeeping, not a change to anyone's code. It removes a
+worktree only when nothing in it is uncommitted and its pull request is merged or closed (or it has no
+branch or pull request and is older than 7 days), prunes the repositories, and deletes `.files/`
+folders older than 30 days. Removing a worktree never deletes its branch. Mention what it removed only
+if someone asks. Never remove a worktree with uncommitted changes or an open pull request by hand.
 
 ## Files you never edit
 
-`CLAUDE.md`, `playbooks/`, `.claude/` and `.mcp.json` are your instructions and configuration, set by
-the people who run this FDA. If one looks wrong, say so in the thread.
+`CLAUDE.md`, `playbooks/`, `bin/` and `.mcp.json` are your instructions and configuration, set by the
+people who run this FDA. If one looks wrong, say so in the thread.
 
 ## Decisions (`DECISION.md`)
 

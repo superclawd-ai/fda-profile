@@ -7,8 +7,8 @@ file is for whoever maintains the template.
 ## Layout
 
 - `profile/`: the template. Required: `CLAUDE.md`, `CONTEXT.md`, `REPOS.md`, `DECISION.md`,
-  `.mcp.json`, `.claude/settings.json`, `playbooks/`, and `.files/`, `repos/`, `worktrees/` (these
-  three ship empty with a `.gitkeep`).
+  `.mcp.json`, `playbooks/`, `bin/cleanup.sh`, and `.files/`, `repos/`, `worktrees/` (these three ship
+  empty with a `.gitkeep`).
 - `agent-templates/`: starting points for the FDA's agent in the SuperClawd App (not installed).
 - `scripts/install.sh`: copies the profile to an FDA's work directory. `scripts/validate.sh`: checks
   the required files and JSON.

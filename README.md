@@ -25,9 +25,8 @@ profile/
 ├── REPOS.md           # the repositories: URL, default branch, setup, tests
 ├── DECISION.md        # decision log: what was decided, why, by whom (newest first)
 ├── playbooks/         # procedures (working-on-code.md; add the client's own)
-├── .mcp.json          # extra MCP servers for this FDA (empty by default)
-├── .claude/
-│   └── settings.json  # Claude Code project settings (lets the servers in .mcp.json load)
+├── bin/cleanup.sh     # removes finished worktrees and old scratch folders (run at every request start)
+├── .mcp.json          # extra MCP servers for this FDA (empty; not loaded yet, see "Known gaps")
 ├── .files/            # scratch space (temporary files, drafts, files people send)
 ├── repos/             # clean clones of the repositories in REPOS.md
 └── worktrees/         # one git worktree per request, so parallel requests never collide
@@ -70,8 +69,8 @@ of a folder of repositories.
 - The FDA runs every request with this folder as its working directory. Because the folder itself isn't
   a git repository, the FDA treats it as a folder of repositories: requests start here, and the FDA
   makes its own worktree under `worktrees/` per request (`CLAUDE.md` says how).
-- Claude Code loads `CLAUDE.md` and `.claude/settings.json` from the working directory on every normal
-  turn (not on plan-only turns; see "Known gaps").
+- Claude Code loads `CLAUDE.md` from the working directory on every normal turn (not on plan-only
+  turns; see "Known gaps").
 - Inside the FDA's sandbox the working directory is writable and everything else in `$HOME` is not, so
   all of the FDA's files live here. Files here (including `.files/`) can be shared with `upload_file`;
   `.env`-style files and keys can't.
@@ -79,7 +78,8 @@ of a folder of repositories.
 
 ## MCP servers (`.mcp.json`)
 
-Empty by default. Add servers in Claude Code's format:
+**Not loaded yet** (see "Known gaps"): today an FDA turn only gets the FDA's own servers. Until that's
+fixed, add MCP servers as workspace MCP servers in the SuperClawd App. The format, for when it lands:
 
 ```json
 {
@@ -89,8 +89,6 @@ Empty by default. Add servers in Claude Code's format:
 }
 ```
 
-- `.claude/settings.json` sets `enableAllProjectMcpServers`, so servers here should load without a
-  prompt. Verify it on the first install: the server must show up in the turn's MCP servers.
 - **Never a literal secret in this file**: it sits in a folder the FDA can read and write. A server that
   needs a token can reference it as `${VAR}`; agent sessions get an allowlisted environment, so pass the
   variable through the FDA's environment file with `FDA_ENV_PASSTHROUGH=VAR` (`GH_TOKEN` is already
@@ -108,8 +106,12 @@ Empty by default. Add servers in Claude Code's format:
   request). The profile already works with the protection on (`--no-track`, `git push origin HEAD`).
 - **Plan-only turns don't load the profile.** They start Claude Code with user settings only, so a
   planning turn doesn't see `CLAUDE.md`. Fix: the daemon tells planning turns to read it first.
+- **`.mcp.json` isn't loaded.** Claude Code needs a project's `.mcp.json` servers approved in the
+  user's config, and every FDA turn runs with a fresh one, so they stay "pending approval" (tested on
+  Jim, 2026-10-30; `enableAllProjectMcpServers` in the project's settings doesn't count). Fix: the daemon
+  merges the work folder's `.mcp.json` into the MCP config it already passes to each turn.
 - **No automatic cleanup in folder mode.** The daemon cleans the worktrees it creates itself, not the
-  FDA's `worktrees/`. The profile has the FDA clean up finished worktrees and old `.files/` folders at
-  the start of each request.
+  FDA's `worktrees/`. The profile's `bin/cleanup.sh` does it; the FDA runs it at the start of each
+  request (a daemon hook would be more reliable).
 
 See [`CLAUDE.md`](CLAUDE.md) for the rules when editing the profile.

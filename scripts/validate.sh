@@ -4,7 +4,7 @@ set -uo pipefail
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 dir="$here/profile/"
-required_files=(CLAUDE.md CONTEXT.md REPOS.md DECISION.md .mcp.json .claude/settings.json)
+required_files=(CLAUDE.md CONTEXT.md REPOS.md DECISION.md .mcp.json bin/cleanup.sh)
 required_dirs=(playbooks .files repos worktrees)
 fail=0
 
@@ -28,7 +28,8 @@ done
 for d in .files repos worktrees; do
   [ -f "$dir$d/.gitkeep" ] || { echo "profile/$d/ needs a .gitkeep"; fail=1; }
 done
-for f in .mcp.json .claude/settings.json; do
+[ -x "${dir}bin/cleanup.sh" ] || { echo "profile/bin/cleanup.sh must be executable"; fail=1; }
+for f in .mcp.json; do
   [ -f "$dir$f" ] && ! json_ok "$dir$f" && { echo "profile/$f is not valid JSON"; fail=1; }
 done
 grep -q '"mcpServers"' "$dir.mcp.json" 2>/dev/null || { echo "profile/.mcp.json needs an mcpServers key"; fail=1; }
