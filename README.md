@@ -69,8 +69,7 @@ of a folder of repositories.
 - The FDA runs every request with this folder as its working directory. Because the folder itself isn't
   a git repository, the FDA treats it as a folder of repositories: requests start here, and the FDA
   makes its own worktree under `worktrees/` per request (`CLAUDE.md` says how).
-- Claude Code loads `CLAUDE.md` from the working directory on every normal turn (not on plan-only
-  turns; see "Known gaps").
+- Claude Code loads `CLAUDE.md` from the working directory on every normal turn (planning turns don't load it, but the FDA tells them to read it first).
 - Inside the FDA's sandbox the working directory is writable and everything else in `$HOME` is not, so
   all of the FDA's files live here. Files here (including `.files/`) can be shared with `upload_file`;
   `.env`-style files and keys can't.
