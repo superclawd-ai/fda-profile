@@ -27,8 +27,9 @@ file is for whoever maintains the template.
 - **The sandbox is real.** Agent sessions can write only inside the working directory (plus their own
   temp and output folders), get only allowlisted environment variables, and can't read `$HOME` config
   beyond git/gh/ssh. Don't write instructions that need anything else.
-- **Work with the git protection** described in the README's "Known gaps": branches with `--no-track`,
-  push with `git push origin HEAD`, never write a repository's `.git/config`.
+- **Work with the git protection**: the FDA's sandbox makes `repos/<repo>/.git` config and hooks
+  read-only, so branches use `--no-track`, pushes use `git push origin HEAD`, and nothing writes a
+  repository's `.git/config`.
 - **Keep `CLAUDE.md` short and concrete.** Procedures go in `playbooks/`.
 - `.mcp.json` ships empty (`{"mcpServers": {}}`); never a literal secret (see README).
 - Run `scripts/validate.sh` before committing.

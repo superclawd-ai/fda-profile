@@ -26,7 +26,7 @@ profile/
 ├── DECISION.md        # decision log: what was decided, why, by whom (newest first)
 ├── playbooks/         # procedures (working-on-code.md; add the client's own)
 ├── bin/cleanup.sh     # removes finished worktrees and old scratch folders (run at every request start)
-├── .mcp.json          # extra MCP servers for this FDA (empty; not loaded yet, see "Known gaps")
+├── .mcp.json          # extra MCP servers for this FDA (empty by default)
 ├── .files/            # scratch space (temporary files, drafts, files people send)
 ├── repos/             # clean clones of the repositories in REPOS.md
 └── worktrees/         # one git worktree per request, so parallel requests never collide
@@ -78,8 +78,8 @@ of a folder of repositories.
 
 ## MCP servers (`.mcp.json`)
 
-**Not loaded yet** (see "Known gaps"): today an FDA turn only gets the FDA's own servers. Until that's
-fixed, add MCP servers as workspace MCP servers in the SuperClawd App. The format, for when it lands:
+Empty by default. Add servers in Claude Code's format; the FDA's turns load them (needs FDA 0.1.12 and
+superclawd 0.1.97 or later):
 
 ```json
 {
@@ -93,25 +93,18 @@ fixed, add MCP servers as workspace MCP servers in the SuperClawd App. The forma
   needs a token can reference it as `${VAR}`; agent sessions get an allowlisted environment, so pass the
   variable through the FDA's environment file with `FDA_ENV_PASSTHROUGH=VAR` (`GH_TOKEN` is already
   passed when the FDA has a GitHub token). Anything a tool can use, the FDA can read: give servers
-  narrowly scoped, revocable tokens only.
+  narrowly scoped, revocable tokens only. Credentialed servers can also live in the SuperClawd App's MCP
+  settings (encrypted).
+- Server names `fda`, `fda-browser`, `fda-calendar`, `core` and `superclawd` are reserved and ignored.
 - Every server is code or a service the FDA sends data to: add only what you'd trust with the client's
   code and messages.
 
-## Known gaps (FDA side, to fix in the FDA daemon)
+## Requirements and notes
 
-- **Nested repositories' git config isn't write-protected.** The FDA's sandbox makes `.git/config` and
-  `.git/hooks` read-only for repositories at the working directory or one level below it; `repos/<repo>`
-  is two levels down, so a turn could plant a git hook there. Until the daemon also covers
-  `repos/*/.git`, this is an open risk (a prompt-injected turn could plant a hook that runs in a later
-  request). The profile already works with the protection on (`--no-track`, `git push origin HEAD`).
-- **Plan-only turns don't load the profile.** They start Claude Code with user settings only, so a
-  planning turn doesn't see `CLAUDE.md`. Fix: the daemon tells planning turns to read it first.
-- **`.mcp.json` isn't loaded.** Claude Code needs a project's `.mcp.json` servers approved in the
-  user's config, and every FDA turn runs with a fresh one, so they stay "pending approval" (tested on
-  Jim, 2026-10-30; `enableAllProjectMcpServers` in the project's settings doesn't count). Fix: the daemon
-  merges the work folder's `.mcp.json` into the MCP config it already passes to each turn.
-- **No automatic cleanup in folder mode.** The daemon cleans the worktrees it creates itself, not the
-  FDA's `worktrees/`. The profile's `bin/cleanup.sh` does it; the FDA runs it at the start of each
-  request (a daemon hook would be more reliable).
+- **FDA 0.1.12 and superclawd 0.1.97 or later.** Earlier versions don't load `.mcp.json` servers into
+  the FDA's turns, don't write-protect the git config and hooks of `repos/<repo>` (two levels down), and
+  don't point planning turns at `CLAUDE.md`. Verified on a real FDA (2026-10-30).
+- **Cleanup in folder mode is the profile's job.** The daemon cleans the worktrees it creates itself, not
+  the FDA's `worktrees/`; `bin/cleanup.sh` does it, and the FDA runs it at the start of each request.
 
 See [`CLAUDE.md`](CLAUDE.md) for the rules when editing the profile.
