@@ -1,7 +1,8 @@
 # Repositories
 
-The repositories this FDA works on. Each one is cloned into `repos/<name>/` (the agent clones a
-missing one the first time it needs it). Add one section per repository.
+The repositories this FDA works with. Each one is cloned into `repos/<name>/` (the FDA clones a missing
+one the first time it needs it). One section per repository; delete this template's section if the FDA
+works with none.
 
 ## <name>
 

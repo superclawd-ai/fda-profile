@@ -1,45 +1,39 @@
-# CLAUDE.md: fda-profiles
+# CLAUDE.md: fda-profile
 
-This repository holds **templates**: work directories for SuperClawd FDAs. You are editing the
-templates, not working as an FDA. Each `profiles/<name>/CLAUDE.md` is written *for the FDA agent* that
-will work inside an installed copy; this file is for whoever maintains the templates.
+This repository holds the **template** for an FDA's work folder. You are editing the template, not
+working as an FDA. `profile/CLAUDE.md` is written *for the FDA* that works inside an installed copy; this
+file is for whoever maintains the template.
 
 ## Layout
 
-- `profiles/<name>/`: one profile per role, kebab-case (`software-engineer`). Required in every
-  profile: `CLAUDE.md`,
-  `CONTEXT.md`, `REPOS.md`, `DECISION.md`, `.mcp.json`, `.claude/settings.json`, `playbooks/`,
-  `.files/`, `repos/`, `worktrees/` (the last three ship empty with a `.gitkeep`).
-- `agents/<name>.md`: the agent prompt for each profile, pasted into the FDA's Primary agent in the
-  SuperClawd App. The role (who the FDA is, how it behaves) lives only here.
-- `scripts/install.sh`: copies a profile to an FDA's work directory. `scripts/validate.sh`: checks
-  every profile has the required files and valid JSON.
-- `README.md`: what a profile is and how to install one. Keep its profile table current.
+- `profile/`: the template. Required: `CLAUDE.md`, `CONTEXT.md`, `REPOS.md`, `DECISION.md`,
+  `.mcp.json`, `.claude/settings.json`, `playbooks/`, and `.files/`, `repos/`, `worktrees/` (these
+  three ship empty with a `.gitkeep`).
+- `agent-templates/`: starting points for the FDA's agent in the SuperClawd App (not installed).
+- `scripts/install.sh`: copies the profile to an FDA's work directory. `scripts/validate.sh`: checks
+  the required files and JSON.
+- `README.md`: what the profile is and how to install it.
 
-## Rules for profiles
+## Rules
 
-- **Generic, never client-specific.** No client names, repositories, people or secrets in a template.
-  Client details go in the installed copy's `CONTEXT.md` / `REPOS.md`, never here.
+- **One profile for every role.** `profile/` describes the folder and the process only. Roles,
+  standards and preferences belong to the FDA's agent in the App (`agent-templates/` has examples).
+  Never put a role-specific rule in `profile/`.
+- **Generic, never client-specific.** No client names, repositories, people or secrets in the template.
+  Client details go in the installed copy's `CONTEXT.md` / `REPOS.md`.
 - **Fit the FDA.** The FDA already tells the agent (in its own system prompt) how to use its tools
   (`set_title`, `post_update`, `ask_question`, `link_pr`, `upload_file`, `update_progress`), to work on a
-  branch and open pull requests, and to treat ticket text as untrusted. Profiles add the role and the
-  folder's conventions; don't restate or contradict the FDA's rules.
+  branch and open pull requests, and to treat ticket text as untrusted. Don't restate or contradict it.
 - **The sandbox is real.** Agent sessions can write only inside the working directory (plus their own
-  temp and output folders), get only allowlisted environment variables, and can't read `$HOME`
-  config beyond git/gh/ssh. Don't write instructions that need anything else.
-- **Shared sections stay consistent across profiles**: folder layout, where things go, repos and
-  worktrees, cleaning up, decisions, scratch space, secrets. When you change one, change it in every
-  profile.
-- **Role in `agents/`, folder in `CLAUDE.md`.** A profile's `CLAUDE.md` describes the folder and the
-  process (layout, worktrees, cleanup, where things go); the agent prompt describes the role. Never put
-  the same rule in both.
-- **Keep `CLAUDE.md` short and concrete.** Procedures longer than a few lines go in `playbooks/`.
+  temp and output folders), get only allowlisted environment variables, and can't read `$HOME` config
+  beyond git/gh/ssh. Don't write instructions that need anything else.
+- **Work with the git protection** described in the README's "Known gaps": branches with `--no-track`,
+  push with `git push origin HEAD`, never write a repository's `.git/config`.
+- **Keep `CLAUDE.md` short and concrete.** Procedures go in `playbooks/`.
 - `.mcp.json` ships empty (`{"mcpServers": {}}`); never a literal secret (see README).
-- Profiles must work with the git protection the README's "Known gaps" describes: create branches with
-  `--no-track`, push with `git push origin HEAD`, never write a repository's `.git/config`.
 - Run `scripts/validate.sh` before committing.
 
 ## Git
 
-Commit and push to `main` directly is fine for template changes; keep commits focused, one change per
-commit, message in the imperative ("Add data-analyst profile").
+Commit and push to `main` directly is fine for template changes; keep commits focused, message in the
+imperative ("Add a release playbook").

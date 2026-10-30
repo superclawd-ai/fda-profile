@@ -1,9 +1,9 @@
-# Client content never comes back to the templates.
-profiles/*/repos/*
-profiles/*/worktrees/*
-profiles/*/.files/*
-!profiles/*/repos/.gitkeep
-!profiles/*/worktrees/.gitkeep
-!profiles/*/.files/.gitkeep
+# Client content never comes back to the template.
+profile/repos/*
+profile/worktrees/*
+profile/.files/*
+!profile/repos/.gitkeep
+!profile/worktrees/.gitkeep
+!profile/.files/.gitkeep
 
 .DS_Store
