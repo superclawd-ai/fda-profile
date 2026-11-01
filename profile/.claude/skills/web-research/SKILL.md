@@ -14,7 +14,9 @@ plus a `source` and `checked` date for each fact). Start from the decision the r
 
 WebSearch → WebFetch for pages; for bulk or structured fetching use `fda-python` with httpx +
 `trafilatura` / `selectolax` (`from selectolax.lexbor import LexborHTMLParser`). Use the FDA browser for JavaScript-heavy or signed-in pages. Be polite: about
-1 request per second per site, respect robots.txt, an honest user agent.
+1 request per second per site, respect robots.txt, and an honest user agent with contact details
+(`SuperClawd-FDA/1.0 (https://superclawd.com; support@superclawd.com)`): Wikimedia/Wikipedia and many
+APIs answer 403 to scripts without one.
 
 ## Rules that keep it true
 

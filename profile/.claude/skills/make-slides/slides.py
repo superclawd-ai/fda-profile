@@ -92,9 +92,28 @@ for sl in o.get("slides", []):
         text(s, M, Inches(3.0), W - 2 * M, Inches(1.2), sl.get("title", ""), 38, bold=True, color=accent)
         notes(s, sl.get("notes"))
         continue
+    if sl.get("type") == "statement":
+        bar(s)
+        text(s, Inches(1.2), Inches(2.5), W - Inches(2.4), Inches(1.4), sl.get("title", ""), 40, bold=True)
+        if sl.get("subtitle"):
+            text(s, Inches(1.2), Inches(3.9), W - Inches(2.4), Inches(1.0), sl["subtitle"], 22, color=grey)
+        notes(s, sl.get("notes"))
+        continue
     title(s, sl.get("title", ""))
     top, avail_h = Inches(1.7), H - Inches(2.2)
-    if "image" in sl:
+    if "stats" in sl:
+        n = max(1, min(len(sl["stats"]), 4))
+        gap = Inches(0.4)
+        cw = (W - 2 * M - gap * (n - 1)) / n
+        for k, st in enumerate(sl["stats"][:4]):
+            x = M + k * (cw + gap)
+            card = s.shapes.add_shape(5, x, Inches(2.4), cw, Inches(3.0))  # rounded rectangle
+            card.fill.solid()
+            card.fill.fore_color.rgb = RGBColor(0xF3, 0xF4, 0xF6)
+            card.line.fill.background()
+            text(s, x + Inches(0.3), Inches(2.8), cw - Inches(0.6), Inches(1.3), str(st[0]), 54, bold=True, color=accent)
+            text(s, x + Inches(0.3), Inches(4.2), cw - Inches(0.6), Inches(1.0), str(st[1]), 18, color=grey)
+    elif "image" in sl:
         pic = s.shapes.add_picture(str(base / sl["image"]), M, top)
         scale = min((W - 2 * M) / pic.width, avail_h / pic.height, 1.0 if pic.width < W else 10)
         pic.width, pic.height = int(pic.width * scale), int(pic.height * scale)

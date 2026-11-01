@@ -10,9 +10,17 @@ of text (CSS wraps text, SVG doesn't). Then render to PNG, look at it, fix, send
 
 ## There's no image-generation model
 
-For "make a photo of…" or a photorealistic picture, say so in one line, then offer the best honest
-alternative: an illustration/icon you draw as SVG, or a real photo with a free license (Wikimedia Commons,
-Openverse) with its attribution line. Never present a found image as one you made.
+For "make a photo of…" or a photorealistic picture, say so in one line, then **deliver both
+alternatives in the same reply** (don't stop to ask which one):
+
+1. An illustration you draw (SVG or HTML → PNG) at the size they need (Instagram 1080×1080, etc.).
+2. Two to four real photos that are free to use, with their license and credit:
+   `fda-python .claude/skills/make-graphic/find_photo.py "golden retriever beach sunset" --out <dir> --n 4 --commercial`
+   (Wikimedia Commons; `--commercial` keeps licenses that allow use in marketing). Look at them and
+   attach the best ones; post each one's line from `credits.txt` with it. CC BY / CC BY-SA require that
+   credit wherever the photo is used: say so.
+
+Then let them pick or ask for changes. Never present a found photo as one you made.
 
 ## SVG → PNG
 

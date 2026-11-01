@@ -12,7 +12,7 @@ import urllib.parse
 import httpx
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
-UA = "SuperClawd-FDA/1.0 (logo lookup; https://superclawd.com)"
+UA = "SuperClawd-FDA/1.0 (https://superclawd.com; support@superclawd.com)"
 ap = argparse.ArgumentParser()
 ap.add_argument("--name", required=True)
 ap.add_argument("--domain")

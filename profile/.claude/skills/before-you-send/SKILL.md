@@ -19,6 +19,6 @@ Go through this every time; it takes a minute and it's what makes people trust y
   (look at page 1 as an image); charts have a title, labelled axes and units; no placeholder text
   ("Lorem", "TODO", "[name]"); images look right at the size people will see them.
 - **Links**: open each one. No `localhost`, internal IPs, or links only you can reach.
-- **Safety**: no credentials, tokens, internal paths or stack traces; personal data only as much as the
-  request needs.
+- **Safety**: no credentials, tokens, file paths or folder names, or stack traces; personal data only
+  as much as the request needs. Every file you mention is attached.
 - **Phone test**: does the first line make sense on its own, without scrolling or opening a file?

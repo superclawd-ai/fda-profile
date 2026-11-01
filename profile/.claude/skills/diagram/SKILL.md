@@ -30,5 +30,6 @@ edge [color="#9CA3AF"];`
 ## Check
 
 Read the PNG: overlapping labels, unreadable small text, arrows crossing everything. Simplify or split
-before sending. Send PNG to view; add the SVG or the `.mmd` source if they'll edit it.
+before sending. Attach the PNG; if they may edit it, also attach the SVG (opens in any browser and in
+design tools). Never point to where files are saved.
 If `fda-mmdc` fails, render the same structure with Graphviz.
