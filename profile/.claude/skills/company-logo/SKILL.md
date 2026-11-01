@@ -17,15 +17,23 @@ It gathers candidates from sources that need no key, in order of trust:
    apple-touch-icon, og:image.
 3. **Simple Icons** (single-color glyph), **GitHub avatar** of the org.
 
-Every SVG is also rendered to PNG (1024 px wide, transparent). The script prints a table of candidates
-with sizes. **Look at the PNGs** (Read them) and pick the one that is the current, full logo (not a
-favicon, banner, social card or old version). Prefer an SVG source.
+Every SVG is also rendered to PNG (1024 px wide, transparent). The script prints a table of candidates,
+vector ones (SVG) first, with each raster's real size. **Look at the PNGs** (Read them) and pick:
+
+- the current logo, not a favicon, banner, social card, customer logo or old version;
+- the **full logo (symbol + name)** for slides, documents and partner lists; the symbol alone only when
+  they asked for an icon (offer it as an extra);
+- a **vector (SVG) source** whenever any candidate has one: it renders sharp at any size.
+
+**Never enlarge a raster image** (PNG/JPG): it comes out blurry. If the only good candidate is a small
+raster, send it at its real size and say so ("only a 200 px version is public").
 
 ## Deliver
 
-- Final files in `out/`: `<Company> logo.svg` (if available) and `<Company> logo.png` at 1024 px wide,
-  transparent; add a 512 px PNG if they're for slides. Trim empty margins:
-  `magick in.png -trim +repage out.png`.
+- PNG from the SVG at 1024 px wide, transparent, margins trimmed:
+  `rsvg-convert -w 1024 -b none in.svg | magick - -trim +repage "<Company> logo.png"`.
+  Attach the PNG; attach the SVG too only if they may need to resize or edit it.
+- Mention only files you actually attached, and never where they're stored.
 - Need it on a dark background? Check contrast; if the logo is dark, say so or use the white variant if
   the site has one (often `logo-white`, `logo-light`, or in a press/brand page).
 - Say where it came from and add: "It's <Company>'s trademark: fine for referring to them (slides,

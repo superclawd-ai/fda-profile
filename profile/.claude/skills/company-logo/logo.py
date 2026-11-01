@@ -137,9 +137,15 @@ fr = get(f"https://github.com/{gh}.png?size=460")
 if fr and "image" in fr.headers.get("content-type", ""):
     save(f"github-{gh}", fr.content, "png", f"GitHub avatar of {gh} (check it's really them)")
 
-print(f"{'#':<3} {'size':<11} {'png to look at':<60} source")
+for f in found:
+    f["kind"] = "vector" if f["file"].endswith(".svg") else "raster"
+found.sort(key=lambda f: f["kind"] != "vector")  # vector first (stable: keeps source order)
+print(f"{'#':<3} {'kind':<7} {'size':<11} {'png to look at':<60} source")
 for i, f in enumerate(found, 1):
-    print(f"{i:<3} {f['size'] or '?':<11} {f['png'] or f['file']:<60} {f['source']}")
+    size = f["size"] or "?"
+    if f["kind"] == "raster":
+        size += " real"  # never enlarge these
+    print(f"{i:<3} {f['kind']:<7} {size:<16} {f['png'] or f['file']:<55} {f['source']}")
 (out / "candidates.json").write_text(json.dumps(found, indent=2))
 if not found:
     print("no candidates found")

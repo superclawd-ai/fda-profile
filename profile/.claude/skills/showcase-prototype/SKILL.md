@@ -1,6 +1,6 @@
 ---
 name: showcase-prototype
-description: Use when you built or changed something visual (a web page, prototype, landing page, dashboard, app screen, email template, UI fix) and need to show it in the Slack thread so non-technical people can see and try it.
+description: Use whenever someone asks to mock up, prototype or design a web page, landing page, app screen, dashboard or email, or to "show me how it looks" (on desktop or a phone), and whenever you changed something visual and need to show it. Covers building it, desktop and mobile screenshots, a short video, and sending it in Slack.
 ---
 
 # Showing a prototype in Slack

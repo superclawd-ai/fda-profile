@@ -13,6 +13,8 @@ Go through this every time; it takes a minute and it's what makes people trust y
   Estimates are labelled as estimates. Nothing filled in from memory as if checked.
 - **Math**: computed in code, not in your head. Totals add up, percentages sum to ~100, units and
   currencies stated, date ranges stated (with time zone when it matters).
+- **Tables**: one unit per row or column (don't mix per-user prices with yearly totals in the same row);
+  the same comparison in the message and in the attached file.
 - **Files**: open what you produced. Spreadsheet opens and the numbers match the message; PDF renders
   (look at page 1 as an image); charts have a title, labelled axes and units; no placeholder text
   ("Lorem", "TODO", "[name]"); images look right at the size people will see them.

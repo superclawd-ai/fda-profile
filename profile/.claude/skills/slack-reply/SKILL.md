@@ -42,6 +42,8 @@ No file paths, commands, stack traces, branch or worktree names, tool names, "sa
 ## Files
 
 - Name files for the reader: `Q3 churn by plan (2026-11-01).xlsx`, not `out.xlsx` or `data_final2.csv`.
+- Every file you mention is attached in the thread. Never say where files are stored (folders, paths,
+  "the output folder").
 - Give `upload_file` a human `title`. Say in one line what each file is.
 - Prefer formats people open with one tap: PDF to read, XLSX for data, PNG for pictures, PPTX/DOCX only
   when they'll edit it. Never send `.md` or `.json` to non-technical people.

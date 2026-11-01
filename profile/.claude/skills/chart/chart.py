@@ -36,6 +36,13 @@ if a.sort and a.kind in ("bar", "barh"):
     df = df.sort_values(a.y[0], ascending=a.kind == "barh")
 fig, ax = plt.subplots()
 x = df[a.x]
+# Dates read as month names for people ("Jan", or "Jan 2026" across years), not 2026-01.
+if not pd.api.types.is_datetime64_any_dtype(x) and x.dtype == object:
+    parsed = pd.to_datetime(x, errors="coerce", format="mixed")
+    if parsed.notna().all() and not x.astype(str).str.fullmatch(r"[A-Za-z]{3,9}").all():
+        x = parsed
+if pd.api.types.is_datetime64_any_dtype(x):
+    x = x.dt.strftime("%b" if x.dt.year.nunique() == 1 else "%b %Y")
 if a.kind == "pie":
     ax.pie(df[a.y[0]], labels=x, autopct="%1.0f%%", startangle=90, counterclock=False,
            wedgeprops={"linewidth": 2, "edgecolor": "white"})
