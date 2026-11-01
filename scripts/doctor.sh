@@ -11,7 +11,7 @@ P=/opt/fda-tools
 
 have=$(basename "$(readlink "$P/current" 2>/dev/null)" 2>/dev/null || true)
 want=$(cat "$deps/versions.env" "$deps/apt.txt" "$deps/requirements.lock" "$deps/package.json" \
-  "$deps/package-lock.json" "$deps/doctor.sh" "$here/scripts/install-deps.sh" | sha256sum | cut -c1-12)
+  "$deps/package-lock.json" "$deps/doctor.sh" | sha256sum | cut -c1-12)
 if [ "$have" = "$want" ]; then
   echo "ok: the installed tools match deps/ ($have)"
 else
@@ -23,5 +23,12 @@ fi
 rc=$?
 df -h / | tail -1 | awk '{print "disk free: " $4}'
 free -h | awk '/Mem/ {print "memory available: " $7}'
-swapon --show | grep -q . || echo "note: no swap (Chromium, LibreOffice and parallel requests share the RAM)"
+if swapon --show --noheadings | grep -q .; then
+  swap=$(swapon --show --noheadings --bytes | awk '{s+=$3} END {printf "%.0f GB", s/1024/1024/1024}')
+  persistent=$(awk '$3 == "swap" && $1 !~ /^#/' /etc/fstab | grep -q . && echo "kept after reboot" || echo "NOT in /etc/fstab: lost on reboot")
+  echo "swap: $swap ($persistent)"
+else
+  echo "swap: NONE. Run scripts/install-deps.sh (it adds 4 GB): without swap, heavy requests can get killed"
+  rc=1
+fi
 exit $rc

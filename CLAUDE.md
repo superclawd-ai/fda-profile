@@ -37,7 +37,8 @@ file is for whoever maintains the template.
   work (documents, images, data, messages) goes in a skill.
 - **Skills call only installed tools** (`fda-python`, `fda-chrome`, `fda-soffice`, `fda-mmdc`, apt
   tools) and never install anything. A new tool goes in `deps/` (re-lock, re-run `install-deps.sh`) and
-  in `fda-doctor` if a skill depends on it.
+  in `fda-doctor` if a skill depends on it. Changing how `install-deps.sh` builds the tools (wrappers,
+  paths): bump `TOOLS_BUILD` in `deps/versions.env` so machines rebuild.
 - **Test every skill command inside the sandbox** on a real FDA machine before committing:
   `scripts/sandbox-exec.sh --cwd <installed work folder> -- <command>`, and look at the output (images,
   PDFs) yourself. Skills are written for non-technical requesters: finished results, no internals.

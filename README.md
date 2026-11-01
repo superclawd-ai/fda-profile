@@ -107,7 +107,9 @@ is installed once per machine:
 - `deps/package.json` + lock: npm tools (Mermaid), plus Playwright's headless Chromium.
 - Entry points on the turn's PATH: `fda-python`, `fda-chrome`, `fda-soffice`, `fda-mmdc`, `fda-doctor`.
 
-`scripts/install-deps.sh` is idempotent: re-run it after `deps/` changes or an Ubuntu upgrade. Each
+`scripts/install-deps.sh` is idempotent: re-run it after `deps/` changes or an Ubuntu upgrade. It also
+makes sure the machine has swap (adds a 4 GB swapfile, kept across reboots, when there's none): with 8 GB of
+RAM, Chromium, LibreOffice and parallel requests otherwise risk getting processes killed. Each
 version is built in its own folder and switched in at the end, so it's safe while the FDA is working.
 `scripts/doctor.sh` runs `fda-doctor` inside the same sandbox as a turn (`scripts/sandbox-exec.sh` runs
 any command that way, handy to debug a skill). The agent runs `fda-doctor` itself when a tool fails.

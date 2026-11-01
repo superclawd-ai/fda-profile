@@ -29,7 +29,7 @@ case "$VERSION_ID" in 24.04 | 26.04) ;; *) warn "untested Ubuntu $VERSION_ID" ;;
 
 manifest_hash() {
   cat "$deps/versions.env" "$deps/apt.txt" "$deps/requirements.lock" "$deps/package.json" \
-    "$deps/package-lock.json" "$deps/doctor.sh" "$here/scripts/install-deps.sh" | sha256sum | cut -c1-12
+    "$deps/package-lock.json" "$deps/doctor.sh" | sha256sum | cut -c1-12
 }
 hash="$(manifest_hash)"
 rel="$PREFIX/releases/$hash"
@@ -48,6 +48,23 @@ for p in "${pkgs[@]}"; do apt-cache show "$p" >/dev/null 2>&1 || missing+=("$p")
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends "${pkgs[@]}" >/dev/null
 log "font cache (system-wide, so turns don't rebuild it)"
 sudo fc-cache -f >/dev/null
+
+# Swap: FDA machines have little RAM (8 GB) and Chromium, LibreOffice and parallel requests share it.
+# Without swap one heavy request can get processes killed. Created once (4 GB), kept across reboots.
+log "swap"
+if swapon --show --noheadings | grep -q .; then
+  echo "swap already on: $(swapon --show --noheadings --bytes | awk '{s+=$3} END {printf "%.0f GB", s/1024/1024/1024}')"
+else
+  [ -e /swapfile ] || { sudo fallocate -l 4G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=4096 status=none; }
+  sudo chmod 600 /swapfile
+  sudo mkswap /swapfile >/dev/null
+  sudo swapon /swapfile
+  echo "created a 4 GB swapfile"
+fi
+if [ -f /swapfile ] && ! grep -q '^/swapfile ' /etc/fstab; then
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
+  echo "swapfile added to /etc/fstab (kept after reboots)"
+fi
 
 log "uv $UV_VERSION"
 arch=$(uname -m)
