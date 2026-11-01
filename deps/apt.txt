@@ -1,0 +1,47 @@
+# System packages the FDA's skills use (scripts/install-deps.sh installs them; deps/doctor.sh checks them).
+# One package per line. Tags: @24.04 / @26.04 = only on that Ubuntu release.
+ca-certificates
+curl
+xz-utils
+fontconfig
+# Images and graphics
+librsvg2-bin
+resvg
+imagemagick
+pngquant
+optipng
+gifsicle
+webp
+libheif-examples
+libheif-plugin-libde265
+qrencode
+zbar-tools
+# PDF, OCR, documents
+poppler-utils
+qpdf
+ghostscript
+img2pdf
+tesseract-ocr
+tesseract-ocr-eng
+tesseract-ocr-por
+tesseract-ocr-spa
+ocrmypdf
+pandoc
+libreoffice-writer-nogui
+libreoffice-calc-nogui
+libreoffice-impress-nogui
+# Diagrams, audio/video
+graphviz
+ffmpeg
+# Libraries WeasyPrint needs (present on Desktop images, not on Server ones)
+libpango-1.0-0
+libpangoft2-1.0-0
+libharfbuzz-subset0
+# Fonts
+fonts-inter
+fonts-ibm-plex
+fonts-liberation2
+fonts-dejavu-core
+fonts-noto-core
+fonts-noto-cjk
+fonts-noto-color-emoji

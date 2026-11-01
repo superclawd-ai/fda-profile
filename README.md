@@ -26,6 +26,7 @@ profile/
 ├── DECISION.md        # decision log: what was decided, why, by whom (newest first)
 ├── playbooks/         # procedures (working-on-code.md; add the client's own)
 ├── bin/cleanup.sh     # removes finished worktrees and old scratch folders (run at every request start)
+├── .claude/skills/    # skills: documents, data, images, research, writing, Slack replies (see below)
 ├── .mcp.json          # extra MCP servers for this FDA (empty by default)
 ├── .files/            # scratch space (temporary files, drafts, files people send)
 ├── repos/             # clean clones of the repositories in REPOS.md
@@ -44,6 +45,8 @@ On the FDA machine, as the FDA's user:
 
 ```bash
 git clone https://github.com/superclawd-ai/fda-profile.git ~/fda-profile   # or git pull
+~/fda-profile/scripts/install-deps.sh    # the tools the skills need (sudo; ~10 min the first time)
+~/fda-profile/scripts/doctor.sh          # every capability checked inside the FDA's sandbox
 ~/fda-profile/scripts/install.sh ~/work/jim
 ```
 
@@ -74,6 +77,50 @@ of a folder of repositories.
   all of the FDA's files live here. Files here (including `.files/`) can be shared with `upload_file`;
   `.env`-style files and keys can't.
 - The working directory must be inside the FDA user's home and not inside a hidden folder.
+
+## Skills (`.claude/skills/`)
+
+Claude Code loads the skills from the working directory. They're generic (any role, any client) and
+tell the agent how to produce finished work with the tools on the machine, for people who aren't
+technical:
+
+| Area | Skills |
+|---|---|
+| Talking to people | `slack-reply`, `before-you-send`, `writing`, `summarize`, `tickets` |
+| Files and documents | `deliver-files`, `make-pdf`, `make-spreadsheet`, `make-word-doc`, `make-slides`, `convert-files`, `read-documents` |
+| Data and research | `analyze-data`, `web-research`, `dates-money-units` |
+| Visuals | `chart`, `diagram`, `make-graphic`, `company-logo`, `edit-image`, `showcase-prototype` |
+| The machine | `tools-on-this-machine` (what's installed, `fda-doctor`, fallbacks) |
+
+Some skills ship helper scripts (`md2pdf.py`, `slides.py`, `chart.py`, `logo.py`, `shoot.py`); they run
+with `fda-python` and are tested inside the FDA's sandbox.
+
+## Tools (`deps/`, `scripts/install-deps.sh`)
+
+An agent turn can't install anything (its sandbox shows the system read-only), so every tool a skill uses
+is installed once per machine:
+
+- `deps/apt.txt`: system packages (rsvg, ImageMagick, poppler, qpdf, Tesseract, ocrmypdf, pandoc,
+  LibreOffice headless, Graphviz, ffmpeg, QR, fonts).
+- `deps/requirements.in` → `deps/requirements.lock`: Python packages, hash-pinned, in a venv on a pinned
+  Python (uv) under `/opt/fda-tools`, independent of the system Python and the FDA's Node.
+- `deps/package.json` + lock: npm tools (Mermaid), plus Playwright's headless Chromium.
+- Entry points on the turn's PATH: `fda-python`, `fda-chrome`, `fda-soffice`, `fda-mmdc`, `fda-doctor`.
+
+`scripts/install-deps.sh` is idempotent: re-run it after `deps/` changes or an Ubuntu upgrade. Each
+version is built in its own folder and switched in at the end, so it's safe while the FDA is working.
+`scripts/doctor.sh` runs `fda-doctor` inside the same sandbox as a turn (`scripts/sandbox-exec.sh` runs
+any command that way, handy to debug a skill). The agent runs `fda-doctor` itself when a tool fails.
+
+Re-locking after editing `deps/requirements.in` or `deps/package.json` (on a maintainer's machine):
+
+```bash
+uv pip compile deps/requirements.in --universal --python-version 3.13 --generate-hashes --no-header -o deps/requirements.lock
+: > /tmp/empty.npmrc && (cd deps && npm install --package-lock-only --ignore-scripts --userconfig /tmp/empty.npmrc --registry https://registry.npmjs.org/)
+```
+
+Footprint: about 2.5 GB of disk. Chromium and LibreOffice each use a few hundred MB of RAM while
+running; on 8 GB machines add swap.
 
 ## MCP servers (`.mcp.json`)
 

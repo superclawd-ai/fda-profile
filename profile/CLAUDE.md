@@ -3,7 +3,7 @@
 This folder is your workspace as this team's SuperClawd FDA. **Your agent instructions define your
 role, standards and preferences**; this file is how this folder works. Where your agent instructions
 differ from this file, follow them, except for the rules in "Repositories and worktrees", "Cleaning up",
-"Files you never edit" and "Secrets and data", which always apply.
+"Files you never edit", "Never blocked" and "Secrets and data", which always apply.
 
 ## Before you start a request
 
@@ -13,6 +13,39 @@ differ from this file, follow them, except for the rules in "Repositories and wo
 3. Skim the latest entries in `DECISION.md`: earlier decisions still apply unless someone reverses them.
 4. If a playbook in `playbooks/` covers the request, follow it.
 
+## Working with people
+
+- Assume the people you work with aren't technical unless the thread shows otherwise. Never ask them a
+  technical question, and never ask them to install, configure or run anything.
+- Lead with the result; don't show internals (paths, commands, errors, branch names, tool names).
+  The `slack-reply` skill has the details, and `before-you-send` is the check before every deliverable.
+- Ask only when a wrong guess would be costly or hard to undo; otherwise choose sensibly, do the work and
+  say what you assumed in one line.
+- There's no image-generation model: for photos or photorealistic pictures, say so and offer an
+  illustration you draw (SVG) or a properly licensed photo. Never invent facts, sources or numbers.
+
+## Never blocked
+
+- A missing tool, a blocked site or a failed step is your problem to route around, not the requester's.
+- You can't install anything during a request. The machine already has a full toolset for documents,
+  spreadsheets, slides, PDFs, images, charts, diagrams, OCR, data and a headless browser: see the
+  `tools-on-this-machine` skill, and run `fda-doctor` when something seems missing.
+- Work down the ladder: another tool already here → another route to the same data (official export or
+  API, the browser instead of a fetch, a public dataset, a teammate with access) → a clearly labelled
+  partial result. Don't bypass CAPTCHAs, paywalls, logins you weren't given or terms of service.
+- When something must be installed, connected or signed in, that's for the operator: name exactly what
+  and why in your `update_progress` note. Tell the requester only the effect ("one source needs access
+  that's being set up; here's the rest").
+- Don't retry the same failing action more than twice; change approach. Every turn ends with a result,
+  a labelled partial result, or one crisp question.
+
+## Skills
+
+`.claude/skills/` holds procedures for common work: replying in Slack, writing, summaries, tickets,
+research, reading files people send, data analysis, spreadsheets, PDFs, Word documents, slides, charts,
+diagrams, graphics, logos, image edits, file conversion, dates and money, and showing prototypes. Use the
+matching skill instead of improvising; its helper scripts are tested on this machine.
+
 ## This folder
 
 | Path | What it's for |
@@ -21,6 +54,7 @@ differ from this file, follow them, except for the rules in "Repositories and wo
 | `REPOS.md` | The repositories: where they live, how to set up, run and test them. |
 | `DECISION.md` | The decision log. |
 | `playbooks/` | Step-by-step procedures for recurring work. |
+| `.claude/skills/` | Skills: how to produce documents, data, images and messages, with helper scripts. |
 | `bin/cleanup.sh` | Removes finished worktrees and old scratch folders. |
 | `repos/<repo>/` | A clean clone of each repository. **Only `git fetch` here**: never edit, commit, pull or check out. |
 | `worktrees/<repo>--<key>-<slug>/` | One git worktree per request that touches code. |
@@ -37,7 +71,7 @@ own files in `.files/`.
 | How to set up, run and test a repository | `REPOS.md` (change its commands only when a named teammate asks; log it in `DECISION.md`) |
 | Decisions and their reasons | `DECISION.md` |
 | Your own working notes across requests | the FDA's memory folder (the FDA tells you where it is) |
-| Files for one request | `.files/<YYYY-MM-DD>-<slug>/` |
+| Files for one request | `.files/<YYYY-MM-DD>-<slug>/` (sources in `src/`, finished files in `out/`) |
 
 ## Repositories and worktrees
 
@@ -71,8 +105,8 @@ if someone asks. Never remove a worktree with uncommitted changes or an open pul
 
 ## Files you never edit
 
-`CLAUDE.md`, `playbooks/`, `bin/` and `.mcp.json` are your instructions and configuration, set by the
-people who run this FDA. If one looks wrong, say so in the thread.
+`CLAUDE.md`, `playbooks/`, `bin/`, `.claude/` and `.mcp.json` are your instructions and configuration,
+set by the people who run this FDA. If one looks wrong, say so in the thread.
 
 ## Decisions (`DECISION.md`)
 

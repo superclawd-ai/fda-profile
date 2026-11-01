@@ -1,0 +1,37 @@
+# Python packages for the FDA's skills, one shared venv in /opt/fda-tools.
+# Lock after editing: see the "Dependencies" section of README.md.
+# Data
+pandas
+numpy
+duckdb
+openpyxl
+xlsxwriter
+rapidfuzz
+unidecode
+# Documents
+python-docx
+python-pptx
+pypdf
+pdfplumber
+weasyprint
+markdown
+jinja2
+extract-msg
+# Images and charts
+pillow
+cairosvg
+matplotlib
+# Web
+httpx
+trafilatura
+selectolax
+beautifulsoup4
+lxml
+playwright
+# Dates, money, units
+python-dateutil
+holidays
+icalendar
+pint
+babel
+tzdata

@@ -7,8 +7,11 @@ file is for whoever maintains the template.
 ## Layout
 
 - `profile/`: the template. Required: `CLAUDE.md`, `CONTEXT.md`, `REPOS.md`, `DECISION.md`,
-  `.mcp.json`, `playbooks/`, `bin/cleanup.sh`, and `.files/`, `repos/`, `worktrees/` (these three ship
-  empty with a `.gitkeep`).
+  `.mcp.json`, `playbooks/`, `bin/cleanup.sh`, `.claude/skills/`, and `.files/`, `repos/`, `worktrees/`
+  (these three ship empty with a `.gitkeep`).
+- `deps/`: the tools the skills need (apt list, locked Python and npm packages, `doctor.sh` =
+  `fda-doctor`). `scripts/install-deps.sh` installs them; `scripts/doctor.sh` checks them inside the
+  sandbox; `scripts/sandbox-exec.sh` runs any command the way a turn does.
 - `agent-templates/`: starting points for the FDA's agent in the SuperClawd App (not installed).
 - `scripts/install.sh`: copies the profile to an FDA's work directory. `scripts/validate.sh`: checks
   the required files and JSON.
@@ -30,7 +33,14 @@ file is for whoever maintains the template.
 - **Work with the git protection**: the FDA's sandbox makes `repos/<repo>/.git` config and hooks
   read-only, so branches use `--no-track`, pushes use `git push origin HEAD`, and nothing writes a
   repository's `.git/config`.
-- **Keep `CLAUDE.md` short and concrete.** Procedures go in `playbooks/`.
+- **Keep `CLAUDE.md` short and concrete.** Procedures go in `playbooks/`; how to produce a kind of
+  work (documents, images, data, messages) goes in a skill.
+- **Skills call only installed tools** (`fda-python`, `fda-chrome`, `fda-soffice`, `fda-mmdc`, apt
+  tools) and never install anything. A new tool goes in `deps/` (re-lock, re-run `install-deps.sh`) and
+  in `fda-doctor` if a skill depends on it.
+- **Test every skill command inside the sandbox** on a real FDA machine before committing:
+  `scripts/sandbox-exec.sh --cwd <installed work folder> -- <command>`, and look at the output (images,
+  PDFs) yourself. Skills are written for non-technical requesters: finished results, no internals.
 - `.mcp.json` ships empty (`{"mcpServers": {}}`); never a literal secret (see README).
 - Run `scripts/validate.sh` before committing.
 
