@@ -65,6 +65,12 @@ if [ -f /swapfile ] && ! grep -q '^/swapfile ' /etc/fstab; then
   echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
   echo "swapfile added to /etc/fstab (kept after reboots)"
 fi
+# Keep work in RAM and use swap only under real memory pressure (Ubuntu's default, 60, swaps early).
+if [ "$(cat /proc/sys/vm/swappiness)" != 10 ] || [ ! -f /etc/sysctl.d/99-fda-swap.conf ]; then
+  echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/99-fda-swap.conf >/dev/null
+  sudo sysctl -q -p /etc/sysctl.d/99-fda-swap.conf
+  echo "swap used only under memory pressure (vm.swappiness=10)"
+fi
 
 log "uv $UV_VERSION"
 arch=$(uname -m)

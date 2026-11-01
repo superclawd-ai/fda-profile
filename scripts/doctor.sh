@@ -24,9 +24,10 @@ rc=$?
 df -h / | tail -1 | awk '{print "disk free: " $4}'
 free -h | awk '/Mem/ {print "memory available: " $7}'
 if swapon --show --noheadings | grep -q .; then
-  swap=$(swapon --show --noheadings --bytes | awk '{s+=$3} END {printf "%.0f GB", s/1024/1024/1024}')
+  swap=$(swapon --show --noheadings --bytes | awk '{s+=$3; u+=$4} END {printf "%.0f GB, %.1f GB in use", s/1024/1024/1024, u/1024/1024/1024}')
   persistent=$(awk '$3 == "swap" && $1 !~ /^#/' /etc/fstab | grep -q . && echo "kept after reboot" || echo "NOT in /etc/fstab: lost on reboot")
-  echo "swap: $swap ($persistent)"
+  echo "swap: $swap ($persistent; swappiness $(cat /proc/sys/vm/swappiness), 10 expected)"
+  echo "      lots in use most of the time means the machine needs more RAM, not more swap"
 else
   echo "swap: NONE. Run scripts/install-deps.sh (it adds 4 GB): without swap, heavy requests can get killed"
   rc=1
