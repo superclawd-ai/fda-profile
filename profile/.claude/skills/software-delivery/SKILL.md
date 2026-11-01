@@ -129,7 +129,8 @@ reviewer would.
 
 ## 8. CI
 
-Check once with `gh pr checks`. Still running → end the turn; you're woken up if it fails.
+Check once with `gh pr checks`. Still running → end the turn (don't `sleep` and poll); you're woken up
+if it fails.
 
 **Gate 8, green?**
 - Red because of your change → fix it, run the checks locally, push.

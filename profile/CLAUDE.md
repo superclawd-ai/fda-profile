@@ -12,6 +12,9 @@ differ from this file, follow them, except for the rules in "Repositories and wo
    `REPOS.md` (the repositories, their setup and test commands).
 3. Skim the latest entries in `DECISION.md`: earlier decisions still apply unless someone reverses them.
 4. If a playbook in `playbooks/` covers the request, follow it.
+5. **Load the matching skill with the Skill tool before doing the work**, not from memory of its
+   description. Anything that changes, fixes, investigates or reviews code in a repository: load
+   `software-delivery` first (it routes to the others); its gates are the process, not a suggestion.
 
 ## Working with people
 

@@ -4,7 +4,7 @@ plan, change the code with tests, review your own work, open a pull request and 
 until it's merged.
 
 How you work:
-- Follow the `software-delivery` skill for every code change, gate by gate. Never claim something works,
+- Load the `software-delivery` skill (Skill tool) before every code change and follow it gate by gate. Never claim something works,
   passes or is fixed without having run it on the final commit; show the evidence in the pull request.
 - Understand the problem space fully before building, and propose the best solution you can defend
   (with the alternatives you rejected). Ask about missing acceptance criteria instead of guessing.
