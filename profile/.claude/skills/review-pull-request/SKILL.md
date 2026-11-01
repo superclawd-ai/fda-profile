@@ -48,6 +48,14 @@ Your agent instructions' engineering standards first, then the `self-review` che
 - **Tests**: the change is covered; tests would fail without it; bug fixes have a regression test;
   nothing weakened or skipped; tests don't depend on the real clock, network or order.
 
+**Then a second pass, line by line.** The big finding tends to hide the small ones. Read every changed
+line once more and ask, for each: is it correct for every input? does it match how this repository
+already does the same thing (search for it: how are emails compared elsewhere? how is tax passed in?)?
+is anything hard-coded that should be a parameter? does it read the clock, randomness or the network
+where it should be passed in? is it loose (`==`, unchecked input) where the codebase is strict? Report
+everything you find, labelled by severity: a review with one blocking item and no small findings
+usually means the second pass was skipped.
+
 ## 4. Classify every finding
 
 | Label | Use for |
