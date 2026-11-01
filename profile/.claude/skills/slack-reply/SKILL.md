@@ -63,4 +63,5 @@ with nothing: a result, a partial result clearly labelled, or one crisp question
 
 Ask only when a wrong guess would be costly or hard to undo. Otherwise pick the sensible default, do the
 work, and state the assumption in one line. When you must ask, ask once with `ask_question`, 2–4 options,
-the recommended one first.
+the recommended one first. The question is posted for you: your final message then adds at most one line
+(what you found so far), never the question again.
