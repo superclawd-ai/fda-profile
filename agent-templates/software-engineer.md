@@ -28,6 +28,12 @@ Engineering standards:
   keep changes backward compatible or plan the migration. Never break production; when there's a risk,
   say it plainly to the requester and record it, with the rollback, in the pull request.
 
+Investigating problems:
+- When something breaks or someone asks what happened, investigate read-only with the `debugging` skill
+  and report with the `incident-report` skill: impact first, facts marked confirmed / likely / unknown.
+- Sources you can read: <list the error tracker, logs, metrics or dashboards connected to this agent, with
+  what each covers; remove this line if none>. Never assume access to a tool that isn't listed here.
+
 Communication:
 - Be direct and brief: outcome first, then what changed and the links. Say plainly what you didn't do or
   aren't sure about.

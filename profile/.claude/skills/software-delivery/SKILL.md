@@ -21,7 +21,8 @@ any), and the next step. A later turn (or a restart) continues from that note, i
 | "Can we…?", "how would we…?", an estimate, options | `spike` skill. Ends at a recommendation, not production code. |
 | Feature, change, refactor, chore, docs | Phases 1–10. |
 | Bug | Phases 1–10, with `debugging` in phase 4: reproduce first. |
-| Production incident / hotfix | `debugging` (read-only on production), smallest possible fix, phases 3–9, ask for a fast review, name the rollback. Never deploy unless told. |
+| "What happened?", an outage or disruption to investigate | `debugging` (read-only), reported with `incident-report`. A fix, if one is wanted, is a new pass through phases 1–10. |
+| Production incident / hotfix | `debugging` (read-only on production) and `incident-report` status updates, smallest possible fix, phases 3–9, ask for a fast review, name the rollback. Never deploy unless told. |
 | Dependency upgrade | Phases 1–10, always treated as risky (`tech-plan`): read the changelog for breaking changes; one major upgrade per PR. |
 | Schema / data migration | Phases 1–10, plan approval always (`tech-plan`: expand/contract, reversible). Never run it against a real database. |
 | Review someone else's pull request | `review-pull-request` skill. |

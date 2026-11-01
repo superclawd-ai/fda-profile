@@ -55,7 +55,8 @@ matching skill instead of improvising; its helper scripts are tested on this mac
 
 **Any change to a repository follows the `software-delivery` skill** (the full lifecycle, from
 understanding the task to the merged pull request, always in its own worktree), with `tech-plan`,
-`write-tests`, `debugging`, `spike`, `self-review` and `review-pull-request` for each phase.
+`write-tests`, `debugging`, `spike`, `self-review` and `review-pull-request` for each phase. Investigating
+an outage or "what happened?" uses `debugging` and reports with `incident-report`.
 
 ## This folder
 

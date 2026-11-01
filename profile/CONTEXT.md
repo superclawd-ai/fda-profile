@@ -32,7 +32,7 @@ a line when it learns the line is wrong or missing). Leave out sections that don
 |---|---|---|
 | Production | _ | never change data here |
 | Staging | _ | _ |
-| Logs / monitoring | _ | read-only, if any |
+| Errors, logs, metrics, dashboards (each tool the FDA can read) | _ | read-only |
 
 ## How we ship code
 
@@ -53,7 +53,7 @@ Read by the `software-delivery` skill. Leave a line as `_` when the team has no 
 - Release / deploy (how, who; the FDA never deploys unless asked): _
 - Where to verify after merge (staging URL): _
 - Protected areas (paths/services needing a named approver): _
-- Incidents and hotfixes (who to call, channel): _
+- Incidents and hotfixes (who to call, channel, severity scale, who approves a revert or flag change): _
 
 ## How this team works
 
