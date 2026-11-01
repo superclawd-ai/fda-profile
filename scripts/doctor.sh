@@ -18,7 +18,8 @@ else
   echo "out of date: installed '${have:-nothing}', deps/ is $want. Run scripts/install-deps.sh"
 fi
 
-"$here/scripts/sandbox-exec.sh" -- /opt/fda-tools/bin/fda-doctor "$@"
+# No keyboard input for the checks (from a terminal, ffmpeg would otherwise wait for it and hang).
+"$here/scripts/sandbox-exec.sh" -- /opt/fda-tools/bin/fda-doctor "$@" </dev/null
 rc=$?
 df -h / | tail -1 | awk '{print "disk free: " $4}'
 free -h | awk '/Mem/ {print "memory available: " $7}'

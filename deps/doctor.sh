@@ -18,7 +18,9 @@ printf '%-9s %-3s %-26s %s\n' CHECK OK TOOL "IF MISSING, USE"
 check() {
   local name=$1 tool=$2 fallback=$3 cmd=$4
   [ "$want" = "  " ] || [[ "$want" == *" $name "* ]] || return 0
-  if timeout 120 bash -c "$cmd" >"$name.log" 2>&1; then
+  # No keyboard input: from an interactive terminal, ffmpeg and others would stop waiting for it (and
+  # a stopped process ignores the timeout).
+  if timeout -k 5 120 bash -c "$cmd" </dev/null >"$name.log" 2>&1; then
     printf '%-9s %-3s %-26s\n' "$name" yes "$tool"
   else
     miss=$((miss + 1))
@@ -53,7 +55,7 @@ check mermaid "fda-mmdc"                "graphviz dot" \
 check browser "fda-chrome"              "describe the result instead of a screenshot" \
   "$B/chrome --screenshot=$w/s.png --window-size=200,200 file://$w/a.svg >/dev/null 2>&1 && test -s s.png"
 check video   "ffmpeg"                  "Pillow: save the frames as an animated GIF" \
-  "ffmpeg -loglevel error -f lavfi -i testsrc=d=1:s=64x64:r=5 t.gif && test -s t.gif"
+  "ffmpeg -nostdin -loglevel error -f lavfi -i testsrc=d=1:s=64x64:r=5 t.gif && test -s t.gif"
 check image   "ImageMagick"             "Pillow via fda-python" \
   "$B/im -size 8x8 xc:red r.png && test -s r.png"
 check qr      "qrencode + zbarimg"      "fda-python with Pillow is not enough; say QR is unavailable" \

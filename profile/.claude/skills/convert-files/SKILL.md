@@ -16,7 +16,7 @@ description: Use for any file format conversion: Word/Excel/PowerPoint to PDF, M
 | Merge / split PDFs | `qpdf --empty --pages a.pdf b.pdf -- out.pdf` · `qpdf in.pdf --pages . 1-3 -- part.pdf` |
 | Scan → searchable PDF | `ocrmypdf --skip-text in.pdf out.pdf` |
 | Image formats | `magick in.webp out.png` · HEIC `heif-dec in.heic out.jpg` |
-| Audio/video | `ffmpeg -i in.mov -c:v libx264 -crf 23 -c:a aac out.mp4` · audio `ffmpeg -i in.m4a out.mp3` |
+| Audio/video | `ffmpeg -nostdin -i in.mov -c:v libx264 -crf 23 -c:a aac out.mp4` · audio `ffmpeg -nostdin -i in.m4a out.mp3` |
 | CSV ↔ XLSX | pandas (`read_csv` / `to_excel`) |
 
 Check the result: page/sheet count matches, look at a page or two as images, file opens. Keep the

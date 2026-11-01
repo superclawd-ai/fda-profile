@@ -98,10 +98,10 @@ with sync_playwright() as pw:
         webm = next(vd.glob("*.webm"))
         mp4 = out / f"{a.name}.mp4"
         gif = out / f"{a.name}.gif"
-        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(webm), "-vf", "scale=960:-2",
+        subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-y", "-i", str(webm), "-vf", "scale=960:-2",
                         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-crf", "28",
                         "-an", str(mp4)], check=True)
-        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(webm), "-vf",
+        subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-y", "-i", str(webm), "-vf",
                         "fps=8,scale=640:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96[p];[b][p]paletteuse",
                         str(gif)], check=True)
         written += [mp4, gif]
