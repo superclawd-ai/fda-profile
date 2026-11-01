@@ -38,7 +38,8 @@ Slide kinds: title (automatic first slide), `section`, `statement` (one big sent
   most one or two bullet slides.
 - Add speaker `notes` to every content slide (what to say, in two or three sentences).
 - ≤ 5 bullets, ≤ 12 words each. Numbers on slides come from your verified data.
-- Charts as PNG from the `chart` skill (with an empty `--title ""`: the slide title already says it);
+- Charts as PNG from the `chart` skill (`chart.py`, or matplotlib with `fda.mplstyle` so the fonts and
+  colors match the deck; an empty `--title ""`: the slide title already says it);
   diagrams from `diagram`.
 - Tables on slides: ≤ 6 rows and ≤ 5 columns; more goes in an attached spreadsheet.
 - Their template: if they sent a .pptx, pass `--template their.pptx` (uses its layouts and theme).

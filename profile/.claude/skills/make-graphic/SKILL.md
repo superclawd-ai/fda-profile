@@ -1,6 +1,6 @@
 ---
 name: make-graphic
-description: Use when asked to make an image, banner, social media post image, icon, badge, header, simple illustration, mockup, QR code or any visual that isn't a data chart or diagram.
+description: Use when asked to make an image, photo, picture, banner, social media post image, icon, badge, header, illustration, mockup, QR code or any visual that isn't a data chart or diagram. Also when someone asks for a photo (there's no image generator: this skill delivers an illustration plus licensed photos).
 ---
 
 # Making graphics
