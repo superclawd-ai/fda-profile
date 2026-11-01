@@ -50,6 +50,10 @@ research, reading files people send, data analysis, spreadsheets, PDFs, Word doc
 diagrams, graphics, logos, image edits, file conversion, dates and money, and showing prototypes. Use the
 matching skill instead of improvising; its helper scripts are tested on this machine.
 
+**Any change to a repository follows the `software-delivery` skill** (the full lifecycle, from
+understanding the task to the merged pull request, always in its own worktree), with `tech-plan`,
+`write-tests`, `debugging`, `spike`, `self-review` and `review-pull-request` for each phase.
+
 ## This folder
 
 | Path | What it's for |
@@ -94,7 +98,7 @@ own files in `.files/`.
 - Work only inside your worktree: use its absolute path or `git -C`, and scope searches to it (each
   turn starts back at this folder's root). Running an app or dev server: use a non-default port.
 - Push with `git push origin HEAD`. Run `gh` from inside your worktree, or pass `-R <owner>/<repo>`:
-  this folder isn't a repository. `playbooks/working-on-code.md` has the full flow.
+  this folder isn't a repository. The `software-delivery` skill has the full flow.
 - Every `update_progress` note includes the worktree path (and branch and pull request, if any), so a
   later turn can pick the request up. Continuing a request: reuse its worktree.
 
