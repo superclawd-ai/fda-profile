@@ -36,8 +36,8 @@ profile/
 `repos/`, `worktrees/` and `.files/` ship empty: their contents are the client's and never come back
 here.
 
-`agent-templates/` (not installed) has starting points for the App agent: `software-engineer.md` and
-`support-engineer.md`. Copy one into the FDA's Primary agent and adapt it, or write your own.
+`agent-templates/` (not installed) has starting points for the App agent: `software-engineer.md`,
+`code-reviewer.md` and `support-engineer.md`. Copy one into the FDA's Primary agent and adapt it, or write your own.
 
 ## Install on an FDA
 

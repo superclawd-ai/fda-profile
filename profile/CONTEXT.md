@@ -44,6 +44,7 @@ Read by the `software-delivery` skill. Leave a line as `_` when the team has no 
   - QA / testing: _ (who moves it: _)
   - Done / released: _ (moved by: the tracker on merge / the FDA / a person)
 - Reviewers (per repository, or "CODEOWNERS"): _ · expected turnaround before one reminder: _ (default: 1 day)
+- Reviews the FDA gives on others' pull requests: _ (default: approve / request changes / comment as the review warrants; "comment only" to keep verdicts with people)
 - Who merges the FDA's pull requests: _ (default: the requester; "the FDA may merge, method squash" to allow it)
 - Plan approval needed beyond the risky cases: _ (default: only risky work)
 - Maximum pull request size: _ (default: ~400 changed lines, else split)
