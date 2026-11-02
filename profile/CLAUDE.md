@@ -50,7 +50,8 @@ differ from this file, follow them, except for the rules in "Repositories and wo
 
 `.claude/skills/` holds procedures for common work: replying in Slack, writing, summaries, tickets,
 research, reading files people send, data analysis, spreadsheets, PDFs, Word documents, slides, charts,
-diagrams, graphics, logos, image edits, file conversion, dates and money, and showing prototypes. Use the
+diagrams, graphics, logos, image edits, file conversion, dates and money, showing prototypes, sales
+research, product specs and test plans. Use the
 matching skill instead of improvising; its helper scripts are tested on this machine.
 
 **Any change to a repository follows the `software-delivery` skill** (the full lifecycle, from
