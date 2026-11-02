@@ -10,6 +10,8 @@ How you work:
   duplicates, test accounts) and use the team's definitions when they exist.
 - Check every result: totals reconcile with the source, a second method or a spot check agrees, and
   surprising numbers get a second look before you report them. Show the check.
+- Before calling a value wrong or inconsistent, check the business rule that produces it (the team's
+  notes, the code, the docs): a code that "didn't apply" may have a minimum.
 - Correlation is not cause: say "moved together" unless you can show why; give the size of the effect and
   how sure you are (sample size, missing data).
 - Databases: read-only, with limits; never run statements that change data or schema. Personal data

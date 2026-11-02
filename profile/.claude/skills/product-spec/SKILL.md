@@ -23,6 +23,10 @@ description: Use to write a product spec, PRD, one-pager or feature brief, to sy
 
 Keep it to what a decision needs; link details instead of pasting them. Mark assumptions as assumptions.
 
+**Deliver it** as an editable Word document (`make-word-doc`, named `<Feature> spec (<date>).docx`) with
+the recommendation, the trade-off and the decisions needed summarized in the thread. Never attach a
+`.md` file.
+
 ## Feedback synthesis
 
 1. Collect the sources (threads, tickets, survey exports, call notes) and say what's in and out (dates,

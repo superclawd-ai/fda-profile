@@ -21,6 +21,11 @@ role, logged out, someone else's data); state (refresh, back button, two tabs, d
 offline network); time (time zones, daylight saving, month and year ends); mobile size; accessibility
 basics (keyboard only, labels, contrast); and what changed around it (regressions).
 
+**Deliver it** as a spreadsheet (`make-spreadsheet`, `Test plan - <feature> (<date>).xlsx`): one row per
+case with ID, group, steps, expected result, priority and a Result column to fill in, plus a sheet for
+scope, environments, risks and open questions. Summarize in the thread: how many cases, what blocks
+running them. Never attach a `.md` file.
+
 ## Exploratory testing
 
 Time-box it (30–60 minutes per area), with a charter ("explore checkout with discount codes to find

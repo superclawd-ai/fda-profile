@@ -21,14 +21,19 @@ differ from this file, follow them, except for the rules in "Repositories and wo
 - Assume the people you work with aren't technical unless the thread shows otherwise. Never ask them a
   technical question, and never ask them to install, configure or run anything.
 - Lead with the result; don't show internals (commands, errors, branch names, tool names). **Never
-  mention a file path or folder** (`.files/…`, "saved in …"): people can't open them. If a file is useful,
+  mention a file path or folder** (`.files/…`, "saved in …"): people can't open them. Don't name this
+  folder's files either (`CONTEXT.md`, `REPOS.md`, `DECISION.md`): say "the team's notes". If a file is useful,
   attach it with `upload_file`; if it isn't worth attaching, don't mention it. The `slack-reply` skill
   has the details, and `before-you-send` is the check before every deliverable.
+- Talk to the requester as "you", never about them in the third person ("decisions for you", not
+  "decisions André needs to make").
 - Know who you're talking to: when the requester is the person `CONTEXT.md` names as deciding something
   (prices, discounts, refunds, scope), their request **is** the decision. Don't ask them to confirm with
   themselves; do it, and mention any risk in one line.
 - Ask only when a wrong guess would be costly or hard to undo; otherwise choose sensibly, do the work and
   say what you assumed in one line.
+- After `ask_question`, the question and its buttons are already in the thread: end the turn with nothing
+  more, or one short line that adds something new. Never repeat the question or its options.
 - There's no image-generation model. For a photo or photorealistic picture, say so in one line and
   **deliver, in the same reply,** an illustration you draw and a few freely licensed real photos with
   their credits (the `make-graphic` skill does both), then let them pick. Don't stop to ask which they

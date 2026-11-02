@@ -20,6 +20,9 @@ description: Use whenever the result is a file or long content (report, data, ch
 
 Put the 2–3 headline numbers or conclusions in the message itself; details live in the file.
 
+Never attach Markdown (`.md`), JSON, HTML source or code files to people who aren't developers: a
+document someone will read is a PDF; one they'll edit is a Word document.
+
 ## Where files live
 
 - Each request gets `.files/<YYYY-MM-DD>-<slug>/`: sources and drafts in `src/`, finished files in `out/`.
