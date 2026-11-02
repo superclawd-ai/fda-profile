@@ -29,7 +29,12 @@ Agree on the ideal-customer criteria first (industry, size, region, signals); if
 none, state the ones you used. One row per company: name, website, industry, size, region, the signal
 that qualifies it (with source), contact name and title (published), contact channel (published, with
 source, or "not published"), fit score with a one-line reason. Deduplicate against any list they sent.
-Deliver as a spreadsheet (`make-spreadsheet`) and summarize the top 5 in the thread.
+**Deliver the number asked for.** Directories and "top companies" lists are leads, not
+answers: keep researching (more searches, the companies' own sites, local business press, job posts)
+until you have that many rows that meet the criteria, or you've tried at least 15 candidates; drop the
+ones that fail instead of padding the list. A shorter list is fine only when you say how many you
+checked and why the rest failed. Always attach the spreadsheet (`make-spreadsheet`, with a Sources
+column) and summarize the top 5 in the thread; don't ask whether they want one.
 
 ## Call or meeting prep
 

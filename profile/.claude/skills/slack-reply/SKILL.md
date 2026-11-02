@@ -36,8 +36,14 @@ an attached file (see the `deliver-files` skill).
 
 ## Never show internals
 
-No file paths, commands, stack traces, branch or worktree names, tool names, "sandbox", "turn" or
-"MCP". Describe the outcome instead. Error text from a tool is for you to act on, not to paste.
+No file paths, commands, stack traces, branch or worktree names, tool names, skill names
+(`incident-report`, `schedule_task`…), "sandbox", "turn" or "MCP". Describe the outcome instead. Error text from a tool is for you to act on, not to paste.
+
+## Formatting that survives Slack
+
+- Numbered lists: keep them flat. A bullet list nested inside a numbered item restarts the numbering
+  in Slack (1, 1, 2); put sub-points on the same line or use a bulleted list instead.
+- Bold with single `*asterisks*`; tables only when they're small (Slack renders them simply).
 
 ## Files
 
