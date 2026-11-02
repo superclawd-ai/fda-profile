@@ -33,7 +33,9 @@ Slide kinds: title (automatic first slide), `section`, `statement` (one big sent
 ## Rules for good decks
 
 - One idea per slide; the title states the takeaway ("Revenue grew 18%", not "Revenue").
-- **Make it visual**: numbers go on a `stats` slide, a before/after or trend becomes a chart (`chart`
+- **Make it visual**: real numbers go on a `stats` slide (distinct figures that matter: revenue, counts,
+  percentages; never filler like "1 owner, 1 place, 1 day" or the same number repeated: use bullets or
+  a `statement` for rules and tips), a before/after or trend becomes a chart (`chart`
   skill), a key message gets a `statement` slide. A deck of plain bullet slides looks unfinished: at
   most one or two bullet slides.
 - Add speaker `notes` to every content slide (what to say, in two or three sentences).

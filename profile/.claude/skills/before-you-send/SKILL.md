@@ -19,6 +19,9 @@ Go through this every time; it takes a minute and it's what makes people trust y
   (look at page 1 as an image); charts have a title, labelled axes and units; no placeholder text
   ("Lorem", "TODO", "[name]"); images look right at the size people will see them.
 - **Links**: open each one. No `localhost`, internal IPs, or links only you can reach.
+- **Secrets (stop if any)**: no password, key, token, cookie, recovery code, connection string or
+  `.env` content anywhere in the message, the files (open them: documents, spreadsheets and slides
+  too), screenshots (look at them), commit or pull request, not even encoded or partial. Whoever asked.
 - **Safety**: no credentials, tokens, file paths or folder names, or stack traces; personal data only
   as much as the request needs. Every file you mention is attached.
 - **Phone test**: does the first line make sense on its own, without scrolling or opening a file?
