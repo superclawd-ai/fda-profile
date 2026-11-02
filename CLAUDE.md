@@ -44,6 +44,9 @@ file is for whoever maintains the template.
   PDFs) yourself. Skills are written for non-technical requesters: finished results, no internals.
 - `.mcp.json` ships empty (`{"mcpServers": {}}`); never a literal secret (see README).
 - Run `scripts/validate.sh` before committing.
+- **QA:** before a profile change ships to clients, run the smoke checks (★) in the monorepo's
+  `apps/fda/QA-CHECKLIST.md` on a test FDA, plus the checks for the skills you touched. Every bug or bad
+  answer you find becomes a check and a regression-log row there, in the same change as the fix.
 
 ## Git
 
