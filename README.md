@@ -112,7 +112,12 @@ is installed once per machine:
 makes sure the machine has swap (adds a 4 GB swapfile, kept across reboots, when there's none) used only under
 memory pressure (`vm.swappiness=10`): with 8 GB of RAM, Chromium, LibreOffice and parallel requests otherwise
 risk getting processes killed. `doctor.sh` shows how much swap is in use: if it's a lot most of the time, the
-machine needs more RAM (or a Server image instead of Desktop), not more swap. Each
+machine needs more RAM (or a Server image instead of Desktop), not more swap. It also makes a frozen
+machine reboot itself (`kernel.softlockup_panic=1`, `kernel.panic=10` in
+`/etc/sysctl.d/90-fda-autoreboot.conf`): a VM whose host stops giving it CPU time (a busy, sleeping or
+throttled PC) otherwise hangs on "soft lockup" messages until someone notices; the FDA service starts on
+boot. On a VM hosted on someone's PC, also give it fewer virtual CPUs than the host has and keep the host
+from sleeping. Each
 version is built in its own folder and switched in at the end, so it's safe while the FDA is working.
 `scripts/doctor.sh` runs `fda-doctor` inside the same sandbox as a turn (`scripts/sandbox-exec.sh` runs
 any command that way, handy to debug a skill). The agent runs `fda-doctor` itself when a tool fails.

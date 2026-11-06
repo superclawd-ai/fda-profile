@@ -32,4 +32,11 @@ else
   echo "swap: NONE. Run scripts/install-deps.sh (it adds 4 GB): without swap, heavy requests can get killed"
   rc=1
 fi
+if [ "$(cat /proc/sys/kernel/softlockup_panic)" = 1 ] && [ "$(cat /proc/sys/kernel/panic)" -gt 0 ] &&
+  [ -f /etc/sysctl.d/90-fda-autoreboot.conf ]; then
+  echo "auto-reboot on freeze: on (reboots $(cat /proc/sys/kernel/panic) s after a soft lockup; kept after reboot)"
+else
+  echo "auto-reboot on freeze: OFF. Run scripts/install-deps.sh: a frozen VM would stay down until someone notices"
+  rc=1
+fi
 exit $rc

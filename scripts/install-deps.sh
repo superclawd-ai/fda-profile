@@ -72,6 +72,19 @@ if [ "$(cat /proc/sys/vm/swappiness)" != 10 ] || [ ! -f /etc/sysctl.d/99-fda-swa
   echo "swap used only under memory pressure (vm.swappiness=10)"
 fi
 
+# A VM whose host stops giving it CPU time (busy, sleeping or throttled host) can freeze for good with
+# "soft lockup" / RCU stall messages. Turn that into a panic and reboot 10 s later: the FDA service
+# starts on boot and an interrupted request can be retried, so the machine comes back by itself.
+log "auto-reboot on freeze"
+if [ "$(cat /proc/sys/kernel/softlockup_panic)" != 1 ] || [ "$(cat /proc/sys/kernel/panic)" != 10 ] ||
+  [ ! -f /etc/sysctl.d/90-fda-autoreboot.conf ]; then
+  printf 'kernel.softlockup_panic=1\nkernel.panic=10\n' | sudo tee /etc/sysctl.d/90-fda-autoreboot.conf >/dev/null
+  sudo sysctl -q -p /etc/sysctl.d/90-fda-autoreboot.conf
+  echo "a frozen machine now reboots itself (kernel.softlockup_panic=1, kernel.panic=10)"
+else
+  echo "already on"
+fi
+
 log "uv $UV_VERSION"
 arch=$(uname -m)
 case $arch in
