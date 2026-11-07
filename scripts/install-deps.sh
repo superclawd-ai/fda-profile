@@ -182,7 +182,12 @@ EOF
 # LibreOffice needs a writable profile: one per call, in the request's /tmp. The profile is seeded to
 # always recalculate formulas when loading Excel/ODF files (by default it keeps the stored, often stale,
 # values), so converting a spreadsheet gives the real numbers.
+# The real LibreOffice by full path: this wrapper is itself named `soffice`, so calling it by name
+# from a PATH that has this folder first would call the wrapper again, endlessly.
+real=/usr/bin/soffice
+[ -x "$real" ] || real=/usr/lib/libreoffice/program/soffice
 prof="${TMPDIR:-/tmp}/lo-profile-$$"
+trap 'rm -rf "$prof"' EXIT INT TERM HUP
 mkdir -p "$prof/user"
 cat >"$prof/user/registrymodifications.xcu" <<'XCU'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -191,10 +196,7 @@ cat >"$prof/user/registrymodifications.xcu" <<'XCU'
 <item oor:path="/org.openoffice.Office.Calc/Formula/Load"><prop oor:name="ODFRecalcMode" oor:op="fuse"><value>0</value></prop></item>
 </oor:items>
 XCU
-soffice -env:UserInstallation="file://$prof" --headless --norestore "$@"
-rc=$?
-rm -rf "$prof"
-exit $rc
+"$real" -env:UserInstallation="file://$prof" --headless --norestore "$@"
 EOF
   sudo install -m 755 "$deps/doctor.sh" "$rel/bin/fda-doctor"
 
@@ -226,4 +228,6 @@ for old in $(ls -1t "$PREFIX/releases" | tail -n +3); do
   [ "$old" = "$hash" ] || sudo rm -rf "${PREFIX:?}/releases/$old"
 done
 sudo chown -R root:root "$PREFIX"
+# LibreOffice profiles an older wrapper left behind (it could loop and leave thousands).
+find "${TMPDIR:-/tmp}" -maxdepth 1 -name 'lo-profile*' -user "$(id -u)" -mmin +10 -exec rm -rf {} + 2>/dev/null || true
 log "done. Check it from inside the FDA's sandbox: scripts/doctor.sh"
